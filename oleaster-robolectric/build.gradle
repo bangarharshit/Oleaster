@@ -33,4 +33,5 @@ dependencies {
     compile group: 'org.robolectric', name: 'robolectric', version: '3.4.2'
     provided 'org.robolectric:android-all:7.1.0_r7-robolectric-0'
     testCompile 'org.robolectric:android-all:7.1.0_r7-robolectric-0'
+    testRuntime 'org.robolectric:android-all:7.1.0_r7-robolectric-0'
 }
