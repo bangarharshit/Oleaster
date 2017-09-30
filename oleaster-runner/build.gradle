@@ -1,0 +1,17 @@
+group 'oleaster'
+version '0.2.0'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.github.bangarharshit'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'junit', name: 'junit', version: '4.12'
+}
