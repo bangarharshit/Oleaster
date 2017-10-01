@@ -11,6 +11,7 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.SdkPicker;
+import org.robolectric.android.AndroidInterceptors;
 import org.robolectric.annotation.Config;
 import org.robolectric.internal.bytecode.ClassHandler;
 import org.robolectric.internal.bytecode.InstrumentationConfiguration;
@@ -110,7 +111,7 @@ public class RoboOleaster extends ParentRunner {
     }
 
     private Collection<Interceptor> findInterceptors() {
-        return Collections.emptyList();
+        return AndroidInterceptors.all();
     }
 
     private Interceptors getInterceptors() {
@@ -194,7 +195,7 @@ public class RoboOleaster extends ParentRunner {
         configureShadows(sandbox);
 
         return SandboxFactory.INSTANCE.getSdkEnvironment(
-                createClassLoaderConfig(config), getJarResolver(), new SdkConfig(pickSdkVersion(config, androidManifest
+                instrumentationConfiguration, getJarResolver(), new SdkConfig(pickSdkVersion(config, androidManifest
                 )));
     }
 

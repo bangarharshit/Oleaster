@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.internal.RoboOleaster;
 import org.robolectric.shadows.ShadowActivity;
 
@@ -15,6 +16,7 @@ import static com.mscharhag.oleaster.runner.StaticRunnerSupport.describe;
 import static com.mscharhag.oleaster.runner.StaticRunnerSupport.it;
 
 @RunWith(RoboOleaster.class)
+@Config(sdk = 21)
 public class ActivityTest {
 
     private Activity activity;

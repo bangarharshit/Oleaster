@@ -76,10 +76,9 @@ Sample project can be found at [RoboOleaster-Sample](https://github.com/bangarha
    limitations under the License.
 ```
 
-## Limitation
+## Limitations
 1. No method level config support. We are exploring alternatives and is currently tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/1).
-2. Support for API 21+. Some of the system resources are not correctly shadowed and is tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/2).
-3. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
+2. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
 
 ### Contributing to RoboOleaster
 Check the issue tracker and send a PR.
