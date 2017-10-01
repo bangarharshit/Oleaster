@@ -3,4 +3,5 @@ include 'oleaster-runner'
 include 'oleaster-matcher'
 include 'oleaster-examples'
 include 'oleaster-robolectric'
+include 'buildSrc'
 
