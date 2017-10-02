@@ -21,7 +21,7 @@ testCompile 'com.github.bangarharshit.RoboOleaster:oleaster-robolectric:0.3.3'
 ## Example
 ```java
 @RunWith(RoboOleaster.class)
-@Config(constants = BuildConfig.class, sdk = 16)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class MainActivityTest {
 
     private MainActivity mainActivity;
