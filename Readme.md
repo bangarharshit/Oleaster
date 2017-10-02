@@ -57,6 +57,14 @@ public class MainActivityTest {
 
 Sample project can be found at [RoboOleaster-Sample](https://github.com/bangarharshit/RoboOleaster-Sample)
 
+## Limitations
+1. No method level config support. We are exploring alternatives and is currently tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/1).
+2. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
+3. Bug for API 21+. The styles are not correctly loaded.
+
+### Contributing to RoboOleaster
+Check the issue tracker and send a PR.
+
 ### License
 ```
    Copyright (C) 2017 Harshit Bangar
@@ -75,10 +83,3 @@ Sample project can be found at [RoboOleaster-Sample](https://github.com/bangarha
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
-
-## Limitations
-1. No method level config support. We are exploring alternatives and is currently tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/1).
-2. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
-
-### Contributing to RoboOleaster
-Check the issue tracker and send a PR.
