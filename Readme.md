@@ -15,7 +15,7 @@ allprojects {
 ```
 Add this in your project build.gradle
 ```groovy
-testCompile 'com.github.bangarharshit.RoboOleaster:oleaster-robolectric:0.2.1'
+testCompile 'com.github.bangarharshit.RoboOleaster:oleaster-robolectric:0.3.3'
 ```
 
 ## Example
@@ -60,7 +60,6 @@ Sample project can be found at [RoboOleaster-Sample](https://github.com/bangarha
 ## Limitations
 1. No method level config support. We are exploring alternatives and is currently tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/1).
 2. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
-3. Bug for API 21+. The styles are not correctly loaded.
 
 ### Contributing to RoboOleaster
 Check the issue tracker and send a PR.
