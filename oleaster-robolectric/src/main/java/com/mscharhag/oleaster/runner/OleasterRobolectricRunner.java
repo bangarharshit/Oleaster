@@ -112,8 +112,8 @@ public class OleasterRobolectricRunner extends OleasterRunner {
         PackageResourceTable systemResourceTable = sdkEnvironment.getSystemResourceTable(getJarResolver());
         PackageResourceTable appResourceTable = getAppResourceTable(appManifest);
 
-
-        Method randomMethod = getTestClass().getJavaClass().getDeclaredMethods()[0];
+        // This will always be non empty since every class has basic methods like toString.
+        Method randomMethod = getTestClass().getJavaClass().getMethods()[0];
         roboSpec.parallelUniverseInterface.setUpApplicationState(
                 randomMethod,
                 roboSpec.testLifecycle,

@@ -2,15 +2,14 @@ package org.robolectric.internal;
 
 import com.mscharhag.oleaster.runner.OleasterRobolectricRunner;
 import com.mscharhag.oleaster.runner.OleasterRunner;
-import com.mscharhag.oleaster.runner.suite.Spec;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.ParentRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
+import org.robolectric.ConfigMerger;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.SdkPicker;
 import org.robolectric.android.AndroidInterceptors;
 import org.robolectric.annotation.Config;
 import org.robolectric.internal.bytecode.ClassHandler;
@@ -42,14 +41,12 @@ import java.net.URLClassLoader;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import static java.util.Arrays.asList;
-import static org.robolectric.util.ReflectionHelpers.defaultsFor;
 
 /**
  * RobOleaster is the default test runner for running android unit tests using {@link OleasterRunner}.
@@ -256,12 +253,10 @@ public class RoboOleaster extends ParentRunner {
      * and is a bit more complicated
      */
     private Config getConfig(Class<?> clazz) {
-        Config classConfig = clazz.getAnnotation(Config.class);
-        if (classConfig != null) {
-            return classConfig;
-        } else {
-            return new Config.Builder().build();
-        }
+        // This will always be non empty since every class has basic methods like toString.
+        Method method = clazz.getMethods()[0];
+        ConfigMerger configMerger = new ConfigMerger();
+        return configMerger.getConfig(clazz, method, new Config.Builder().build());
     }
 
     private DependencyResolver getJarResolver() {
