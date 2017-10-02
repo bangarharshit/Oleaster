@@ -119,8 +119,7 @@ public class OleasterRobolectricRunner extends OleasterRunner {
                 roboSpec.testLifecycle,
                 appManifest,
                 config,
-                new
-                        RoutingResourceTable(getCompiletimeSdkResourceTable(), appResourceTable),
+                new RoutingResourceTable(getCompiletimeSdkResourceTable(), appResourceTable),
                 new RoutingResourceTable(systemResourceTable, appResourceTable),
                 new RoutingResourceTable(systemResourceTable));
         roboSpec.testLifecycle.beforeTest(null);

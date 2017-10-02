@@ -16,8 +16,6 @@ import org.robolectric.internal.bytecode.ClassHandler;
 import org.robolectric.internal.bytecode.InstrumentationConfiguration;
 import org.robolectric.internal.bytecode.Interceptor;
 import org.robolectric.internal.bytecode.Interceptors;
-import org.robolectric.internal.bytecode.Sandbox;
-import org.robolectric.internal.bytecode.SandboxClassLoader;
 import org.robolectric.internal.bytecode.SandboxConfig;
 import org.robolectric.internal.bytecode.ShadowMap;
 import org.robolectric.internal.bytecode.ShadowWrangler;
@@ -37,7 +35,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,20 +69,20 @@ public class RoboOleaster extends ParentRunner {
         Config config = getConfig(testClass);
         AndroidManifest androidManifest = getAppManifest(config);
         interceptors = new Interceptors(findInterceptors());
-        SdkEnvironment sandbox = getSandbox(config, androidManifest);
+        SdkEnvironment sdkEnvironment = getSandbox(config, androidManifest);
 
         // Configure shadows *BEFORE* setting the ClassLoader. This is necessary because
         // creating the ShadowMap loads all ShadowProviders via ServiceLoader and this is
         // not available once we install the Robolectric class loader.
-        configureShadows(sandbox);
+        configureShadows(sdkEnvironment);
 
-        Class bootstrappedTestClass = sandbox.bootstrappedClass(testClass);
+        Class bootstrappedTestClass = sdkEnvironment.bootstrappedClass(testClass);
         try {
 
-            this.oleasterRobolectricRunner = sandbox
+            this.oleasterRobolectricRunner = sdkEnvironment
                     .bootstrappedClass(OleasterRobolectricRunner.class)
                     .getConstructor(Class.class, SdkEnvironment.class, Config.class, AndroidManifest.class)
-                    .newInstance(bootstrappedTestClass, sandbox, config, androidManifest);
+                    .newInstance(bootstrappedTestClass, sdkEnvironment, config, androidManifest);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -115,7 +112,7 @@ public class RoboOleaster extends ParentRunner {
         return interceptors;
     }
 
-    private void configureShadows(Sandbox sandbox) {
+    private void configureShadows(SdkEnvironment sdkEnvironment) {
         ShadowMap.Builder builder = createShadowMap().newBuilder();
 
         // Configure shadows *BEFORE* setting the ClassLoader. This is necessary because
@@ -124,17 +121,17 @@ public class RoboOleaster extends ParentRunner {
 
 
         ShadowMap shadowMap = builder.build();
-        sandbox.replaceShadowMap(shadowMap);
+        sdkEnvironment.replaceShadowMap(shadowMap);
 
-        sandbox.configure(createClassHandler(shadowMap, sandbox), getInterceptors());
+        sdkEnvironment.configure(createClassHandler(shadowMap, sdkEnvironment), getInterceptors());
     }
 
     private ShadowMap createShadowMap() {
         return ShadowMap.EMPTY;
     }
 
-    private ClassHandler createClassHandler(ShadowMap shadowMap, Sandbox sandbox) {
-        return new ShadowWrangler(shadowMap, 0, interceptors);
+    private ClassHandler createClassHandler(ShadowMap shadowMap, SdkEnvironment sdkEnvironment) {
+        return new ShadowWrangler(shadowMap, sdkEnvironment.getSdkConfig().getApiLevel(), interceptors);
     }
 
     @Override
@@ -185,15 +182,10 @@ public class RoboOleaster extends ParentRunner {
     }
 
     private SdkEnvironment getSandbox(Config config, AndroidManifest androidManifest) {
-        InstrumentationConfiguration instrumentationConfiguration = createClassLoaderConfig(config);
-        URLClassLoader systemClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-        ClassLoader sandboxClassLoader = new SandboxClassLoader(systemClassLoader, instrumentationConfiguration);
-        Sandbox sandbox = new Sandbox(sandboxClassLoader);
-        configureShadows(sandbox);
-
         return SandboxFactory.INSTANCE.getSdkEnvironment(
-                instrumentationConfiguration, getJarResolver(), new SdkConfig(pickSdkVersion(config, androidManifest
-                )));
+                createClassLoaderConfig(config),
+                getJarResolver(),
+                new SdkConfig(pickSdkVersion(config, androidManifest)));
     }
 
     private AndroidManifest getAppManifest(Config config) {
