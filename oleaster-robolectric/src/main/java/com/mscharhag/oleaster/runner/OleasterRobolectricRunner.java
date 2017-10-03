@@ -125,45 +125,6 @@ public class OleasterRobolectricRunner extends OleasterRunner {
         roboSpec.testLifecycle.beforeTest(null);
     }
 
-    /**
-     * Detects which build system is in use and returns the appropriate ManifestFactory implementation.
-     *
-     * Custom TestRunner subclasses may wish to override this method to provide alternate configuration.
-     *
-     * @param config Specification of the SDK version, manifest file, package name, etc.
-     */
-    protected ManifestFactory getManifestFactory(Config config) {
-        Properties buildSystemApiProperties = getBuildSystemApiProperties();
-        if (buildSystemApiProperties != null) {
-            return new DefaultManifestFactory(buildSystemApiProperties);
-        }
-
-        Class<?> buildConstants = config.constants();
-        //noinspection ConstantConditions
-        if (BuckManifestFactory.isBuck()) {
-            return new BuckManifestFactory();
-        } else if (buildConstants != Void.class) {
-            return new GradleManifestFactory();
-        } else {
-            return new MavenManifestFactory();
-        }
-    }
-
-    Properties getBuildSystemApiProperties() {
-        InputStream resourceAsStream = getClass().getResourceAsStream("/com/android/tools/test_config.properties");
-        if (resourceAsStream == null) {
-            return null;
-        }
-
-        try {
-            Properties properties = new Properties();
-            properties.load(resourceAsStream);
-            return properties;
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
     protected DependencyResolver getJarResolver() {
         if (dependencyResolver == null) {
             if (Boolean.getBoolean("robolectric.offline")) {
@@ -272,6 +233,7 @@ public class OleasterRobolectricRunner extends OleasterRunner {
             beforeTest(sandbox, spec);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+            throw new IllegalArgumentException(throwable.getCause());
         }
 
         RoboSpec roboSpec = (RoboSpec) spec;
