@@ -50,9 +50,9 @@ public class Spec extends Statement {
 	public String getFullDescription() {
 		String suiteDescription = suite.getFullDescription();
 		if (suiteDescription != null) {
-			return String.format("%s, it %s", suiteDescription, this.description);
+			return String.format("%s, %s", suiteDescription, this.description);
 		}
-		return String.format("it %s", this.description);
+		return String.format("%s", this.description);
 	}
 
 	@Override
