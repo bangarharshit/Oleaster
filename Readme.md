@@ -1,5 +1,5 @@
 # RoboOleaster
-[![Build Status](https://travis-ci.org/bangarharshit/RoboOleaster.svg?branch=master)](https://travis-ci.org/bangarharshit/RoboOleaster) 
+[![Build Status](https://travis-ci.org/OleasterFramework/Oleaster.svg?branch=master)](https://travis-ci.org/OleasterFramework/Oleaster) 
 
 
 RoboOleaster is a BDD testing framework for Android. It is written on top of [Oleaster](https://github.com/mscharhag/oleaster) 
