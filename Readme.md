@@ -52,7 +52,12 @@ allprojects {
 ```
 Add this in your project build.gradle
 ```groovy
-testCompile 'com.github.bangarharshit.RoboOleaster:oleaster-robolectric:0.3.3'
+// Main runner
+testCompile 'com.github.OleasterFramework.Oleaster:oleaster-runner:v0.3.4'
+// Robolectric support for Android
+testCompile 'com.github.OleasterFramework.Oleaster:oleaster-robolectric:v0.3.4'
+// For matchers
+testCompile 'com.github.OleasterFramework.Oleaster:oleaster-matcher:v0.3.4'
 ```
 
 ## Android Example
