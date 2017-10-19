@@ -2,8 +2,42 @@
 [![Build Status](https://travis-ci.org/OleasterFramework/Oleaster.svg?branch=master)](https://travis-ci.org/OleasterFramework/Oleaster) 
 
 
-RoboOleaster is a BDD testing framework for Android. It is written on top of [Oleaster](https://github.com/mscharhag/oleaster) 
+RoboOleaster is a BDD testing framework for Java and Android. It is a fork of [Oleaster](https://github.com/mscharhag/oleaster) 
 and is inspired heavily by [Jasmine](https://github.com/jasmine/jasmine).
+
+An Oleaster JUnit test looks like this:
+
+```java
+@RunWith(OleasterRunner.class)
+public class OleasterIntroductionTest {{
+	describe("A suite", () -> {
+		it("contains a spec with an expectation", () -> {
+			expect(40 + 2).toEqual(42);
+		});
+	});
+}}
+```
+
+Oleaster consists out of two independent libraries:
+
+The [Oleaster JUnit Runner](https://github.com/mscharhag/oleaster/tree/master/oleaster-runner) gives you the option
+ to write JUnit tests in the format shown above. Java 8 Lambda expressions are used to structure a test in suites
+ and specifications.
+ 
+[Oleaster-Matcher](https://github.com/mscharhag/oleaster/tree/master/oleaster-matcher)
+ provides Jasmine-like Matchers (`expect(..).toEqual(..)`) to validate test results. These Matchers can be used
+ as a replacement (or extension) for standard JUnit assertions.
+ 
+ 
+ ## Documentation and examples
+
+[Oleaster JUnit Runner Documentation](https://github.com/mscharhag/oleaster/blob/master/oleaster-runner/README.md)
+
+[Oleaster Matcher Documentation](https://github.com/mscharhag/oleaster/blob/master/oleaster-matcher/README.md)
+
+[Source of the AudioPlayer example](https://github.com/mscharhag/oleaster/blob/master/oleaster-examples/src/test/java/com/mscharhag/oleaster/examples/AudioPlayerExampleTest.java) from the Oleaster Runner documentation.
+
+Oleaster tests are (mostly) written with Oleaster (see: [Oleaster JUnit Runner Tests](https://github.com/mscharhag/oleaster/tree/master/oleaster-runner/src/test/java/com/mscharhag/oleaster/runner) and [Oleaster Matcher Tests](https://github.com/mscharhag/oleaster/tree/master/oleaster-matcher/src/test/java/com/mscharhag/oleaster/matcher/matchers)).
 
 ## Using RoboOleaster in your application
 
@@ -21,7 +55,7 @@ Add this in your project build.gradle
 testCompile 'com.github.bangarharshit.RoboOleaster:oleaster-robolectric:0.3.3'
 ```
 
-## Example
+## Android Example
 ```java
 @RunWith(RoboOleaster.class)
 @Config(constants = BuildConfig.class, sdk = 21)
@@ -64,8 +98,8 @@ Sample project can be found at [RoboOleaster-Sample](https://github.com/bangarha
 1. No method level config support. We are exploring alternatives and is currently tracked [here](https://github.com/bangarharshit/RoboOleaster/issues/1).
 2. Multiple API level support for a test. Check this [issue](https://github.com/bangarharshit/RoboOleaster/issues/3).
 
-### Contributing to RoboOleaster
-Check the issue tracker and send a PR.
+### Contributing to Oleaster
+Check the issue tracker and send a PR. Looks for issues marked with good first issue label.
 
 ### License
 ```
