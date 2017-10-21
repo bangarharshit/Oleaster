@@ -1,4 +1,6 @@
 # RoboOleaster
+
+[![Join the chat at https://gitter.im/bangarharshit/Oleaster](https://badges.gitter.im/bangarharshit/Oleaster.svg)](https://gitter.im/bangarharshit/Oleaster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/OleasterFramework/Oleaster.svg?branch=master)](https://travis-ci.org/OleasterFramework/Oleaster) 
 
 
